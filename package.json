@@ -1,0 +1,22 @@
+{
+  "name": "dukani",
+  "version": "1.0.0",
+  "description": "Dukani is a MERN ecommerce application. Dukani is a Swahili word meaning at the shop.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JobCollins/dukani.git"
+  },
+  "author": "Job Collins Dulo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JobCollins/dukani/issues"
+  },
+  "homepage": "https://github.com/JobCollins/dukani#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
