@@ -2,12 +2,27 @@ import React, { Component } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
-import products from '../products'
+import axios from 'axios'
 
 export default class ProductScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            product: {},
+        }
+    }
+    
+
+    async componentDidMount(){
+        const { data } = await axios.get(`/api/products/${this.props.match.params.id}`)
+        // console.log(data);
+        this.setState( {product: data} )
+    }
+
+
     render() {
         const { match } = this.props
-        const product = products.find((p) => p._id === match.params.id)
+        // const product = product.find((p) => p._id === match.params.id)
         return (
             <>
                 <Link className = 'btn btn-dark my-3'to='/'> 
@@ -15,21 +30,21 @@ export default class ProductScreen extends Component {
                 </Link>
                 <Row>
                     <Col md={6}>
-                        <Image src={product.image} alt={product.name} fluid/>
+                        <Image src={this.state.product.image} alt={this.state.product.name} fluid/>
                     </Col>
                     <Col md={3}>
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
-                                <h2>{product.name}</h2>
+                                <h2>{this.state.product.name}</h2>
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
+                                <Rating value={this.state.product.rating} text={`${this.state.product.numReviews} reviews`}/>
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                Price: ${product.price}
+                                Price: ${this.state.product.price}
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                Description: {product.description}
+                                Description: {this.state.product.description}
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>
@@ -42,7 +57,7 @@ export default class ProductScreen extends Component {
                                             Price: 
                                         </Col>
                                         <Col>
-                                            <strong>${product.price}</strong> 
+                                            <strong>${this.state.product.price}</strong> 
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
@@ -52,14 +67,14 @@ export default class ProductScreen extends Component {
                                             Status: 
                                         </Col>
                                         <Col>
-                                            <strong>{product.countInStock > 0
+                                            <strong>{this.state.product.countInStock > 0
                                             ? 'In Stock'
                                             : 'Out of Stock'}</strong> 
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    <Button className='btn-black' type='button' disabled={product.countInStock === 0}>
+                                    <Button className='btn-black' type='button' disabled={this.state.product.countInStock === 0}>
                                         Add to Cart
                                     </Button>
                                 </ListGroup.Item>
