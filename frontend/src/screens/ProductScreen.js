@@ -21,7 +21,7 @@ export default class ProductScreen extends Component {
 
 
     render() {
-        const { match } = this.props
+        // const { match } = this.props
         // const product = product.find((p) => p._id === match.params.id)
         return (
             <>
