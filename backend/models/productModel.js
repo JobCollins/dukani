@@ -1,8 +1,8 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 const reviewSchema = mongoose.Schema({
     name: {
-        type: string,
+        type: String,
         required: true
     },
     rating: {
@@ -10,7 +10,7 @@ const reviewSchema = mongoose.Schema({
         required: true
     },
     comment: {
-        type: string,
+        type: String,
         required: true
     },
 },{
