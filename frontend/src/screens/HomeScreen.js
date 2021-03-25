@@ -1,34 +1,40 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 import Product from '../components/Product'
-import axios from 'axios'
+import {listProducts} from '../actions/productActions'
 
-export default class HomeScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            products: [],
-        }
-    }
+const HomeScreen = () => {
 
-    async componentDidMount(){
-        const { data } = await axios.get('/api/products')
+    const dispatch = useDispatch()
 
-        this.setState( {products: data} )
-    }
+    const productList = useSelector(state => state.productList) //get pcs of state
 
-    render() {
-        return (
-            <>
-              <h1>Latest Products</h1>
-              <Row>
-                  {this.state.products.map((product) => (
-                      <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                          <Product product={product}/>
-                       </Col>
-                  ))}
-              </Row>  
-            </>
-        )
-    }
+    const { loading, error, products } = productList //pull out from state what app needs
+
+    useEffect(() => {
+        dispatch(listProducts()) //fire off the action
+    }, [dispatch])
+    
+    return (
+        <>
+            <h1>Latest Products</h1>
+            {loading ? (
+            <h2>Loading...</h2>
+             ) : error ? (
+             <h3>{error}</h3>
+             ) : (
+                <Row>
+                    {products.map((product) => (
+                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                            <Product product={product}/>
+                        </Col>
+                    ))}
+                </Row>
+             )}
+             
+        </>
+    )
 }
+
+export default HomeScreen
