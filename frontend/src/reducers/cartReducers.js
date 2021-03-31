@@ -1,5 +1,5 @@
 import React from 'react'
-import {CART_ADD_ITEM} from '../constants/cartConstants'
+import {CART_ADD_ITEM, CART_REMOVE_ITEM} from '../constants/cartConstants'
 
 export const cartReducers = (state={ cartItems: []}, action) => {
     switch (action.type) {
@@ -14,7 +14,7 @@ export const cartReducers = (state={ cartItems: []}, action) => {
                 return{
                     ...state,
                     cartItems:state.cartItems.map(
-                        x => x.product == existItem.product ? item : x
+                        x => x.product === existItem.product ? item : x
                     )
                 }
             } else {
@@ -23,8 +23,13 @@ export const cartReducers = (state={ cartItems: []}, action) => {
                     cartItems: [...state.cartItems, item]
                 }
             }
-            
-            break;
+        case CART_REMOVE_ITEM:
+            return{
+                ...state,
+                cartItems: state.cartItems.filter(
+                    x => x.product !== action.payload
+                ),
+            }
     
         default:
             return state;
