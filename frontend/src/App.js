@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import React, { Component } from 'react'
 import { LoginScreen } from './screens/LoginScreen'
+import { RegisterScreen } from './screens/RegisterScreen'
 
 export default class App extends Component {
   render() {
@@ -17,6 +18,7 @@ export default class App extends Component {
         <main className='py-3'>
           <Container>
             <Route path='/login' component={LoginScreen}/>
+            <Route path='/register' component={RegisterScreen}/>
             <Route path='/product/:id' component={ProductScreen}/>
             <Route path='/cart/:id?' component={CartScreen}/>
             <Route path='/' component={HomeScreen} exact/>
