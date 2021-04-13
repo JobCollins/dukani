@@ -1,5 +1,10 @@
 import React from 'react'
-import {CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING_ADDRESS} from '../constants/cartConstants'
+import {
+    CART_ADD_ITEM, 
+    CART_REMOVE_ITEM, 
+    CART_SAVE_PAYMENT_METHOD, 
+    CART_SAVE_SHIPPING_ADDRESS
+} from '../constants/cartConstants'
 
 export const cartReducers = (state={ cartItems: [], shippingAddress: {}}, action) => {
     switch (action.type) {
@@ -34,6 +39,11 @@ export const cartReducers = (state={ cartItems: [], shippingAddress: {}}, action
             return{
                 ...state,
                 shippingAddress: action.payload,
+            }
+        case CART_SAVE_PAYMENT_METHOD:
+            return{
+                ...state,
+                paymentMethod: action.payload,
             }
     
         default:
